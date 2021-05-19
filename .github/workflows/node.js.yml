@@ -44,5 +44,4 @@ jobs:
         with:
           commit_message: Deploy code for ${{ github.event.head_commit.message }}
           branch: production
-          file_pattern: build/*
           skip_fetch: true
