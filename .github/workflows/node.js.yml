@@ -16,15 +16,15 @@ jobs:
       - name: Checkout commit
         uses: actions/checkout@v2
 
-      - name: Setup node version
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
+      # - name: Setup node version
+      #   uses: actions/setup-node@v2
+      #   with:
+      #     node-version: '14'
 
       - name: Install packages
         uses: borales/actions-yarn@v2.0.0
         with:
-          cmd: install
+          cmd: install --ignore-engines
 
       - name: Compile codes
         uses: borales/actions-yarn@v2.0.0
