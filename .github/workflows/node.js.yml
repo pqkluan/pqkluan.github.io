@@ -13,10 +13,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+      - name: Checkout commit
+        uses: actions/checkout@v2
+
+      - name: Install packages
+        uses: borales/actions-yarn@v2.0.0
         with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm install
-      - run: npm run build
+          cmd: install
+
+      - name: Compile codes
+        uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: build
+
+      # TODO: test go here
+
+      - name: Commit to production branch
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Deploy code for ${{ github.event.head_commit.message }}
+          branch: production
+          file_pattern: build/*
+          skip_fetch: true
