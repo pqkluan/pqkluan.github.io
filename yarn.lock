@@ -67,6 +67,11 @@
     estree-walker "^2.0.1"
     picomatch "^2.2.2"
 
+"@sveltejs/adapter-static@^1.0.0-next.10":
+  version "1.0.0-next.10"
+  resolved "https://registry.yarnpkg.com/@sveltejs/adapter-static/-/adapter-static-1.0.0-next.10.tgz#dd02fb517c1b9aa5c7c46ecf766676b757838adb"
+  integrity sha512-DDsfyl7phvvR5FIoKSejbK8UYLMiVppx/MZdR7HIsPaL/QQqP2s0jIBlCyOwnK1GX/ENWB9Gg19xjGACB98Pwg==
+
 "@sveltejs/kit@next":
   version "1.0.0-next.107"
   resolved "https://registry.yarnpkg.com/@sveltejs/kit/-/kit-1.0.0-next.107.tgz#346810ec6b826d57bbf371b3f0f7d5de59e8d411"
