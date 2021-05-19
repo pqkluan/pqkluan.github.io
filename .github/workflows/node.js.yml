@@ -22,14 +22,20 @@ jobs:
           node-version: '>=12.17.0'
 
       - name: Install packages
-        uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: install
+        run: npm install
 
       - name: Compile codes
-        uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: build
+        run: npm run build
+
+      # - name: Install packages
+      #   uses: borales/actions-yarn@v2.0.0
+      #   with:
+      #     cmd: install
+
+      # - name: Compile codes
+      #   uses: borales/actions-yarn@v2.0.0
+      #   with:
+      #     cmd: build
 
       # TODO: test go here
 
