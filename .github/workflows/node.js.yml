@@ -27,16 +27,6 @@ jobs:
       - name: Compile codes
         run: npm run build
 
-      # - name: Install packages
-      #   uses: borales/actions-yarn@v2.0.0
-      #   with:
-      #     cmd: install
-
-      # - name: Compile codes
-      #   uses: borales/actions-yarn@v2.0.0
-      #   with:
-      #     cmd: build
-
       # TODO: test go here
 
       - name: Commit to production branch
