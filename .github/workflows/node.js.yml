@@ -29,6 +29,15 @@ jobs:
       - name: Compile codes
         run: npm run build
 
+      - name: Clear root dir
+        run: rm -rf $(ls -aI "build")
+
+      - name: Move from build to root
+        run: mv ./build/* ./
+
+      - name: Remove build dir
+        run: rm -r build
+
       # TODO: test go here
 
       - name: Commit to production branch
