@@ -1,7 +1,6 @@
 # create-svelte
 
-![Production build](https://github.com/github/docs/actions/workflows/node.js.yml/badge.svg)
-
+[![Build Actions Status](https://github.com/pqkluan/pqkluan.github.io/workflows/node.js.yml/badge.svg)](https://github.com/pqkluan/pqkluan.github.io/actions)
 
 Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte);
 
