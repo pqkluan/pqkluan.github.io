@@ -33,5 +33,5 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Deploy code for ${{ github.event.head_commit.message }}
-          branch: production
+          branch: dist
           skip_fetch: true
