@@ -30,7 +30,7 @@ jobs:
         run: npm run build
 
       - name: Clear root dir
-        run: rm -rf $(ls -aI "build")
+        run: rm -rf $(ls -I "build")
 
       - name: Move from build to root
         run: mv ./build/* ./
