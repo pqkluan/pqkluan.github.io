@@ -15,6 +15,8 @@ jobs:
     steps:
       - name: Checkout commit
         uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
 
       - name: Setup node version
         uses: actions/setup-node@v2
@@ -33,5 +35,5 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Deploy code for ${{ github.event.head_commit.message }}
-          branch: dist
+          branch: production
           skip_fetch: true
