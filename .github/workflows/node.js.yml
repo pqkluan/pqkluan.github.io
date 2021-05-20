@@ -36,4 +36,3 @@ jobs:
         with:
           commit_message: Deploy code for ${{ github.event.head_commit.message }}
           branch: production
-          skip_fetch: true
