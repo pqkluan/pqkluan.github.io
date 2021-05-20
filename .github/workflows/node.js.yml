@@ -29,21 +29,10 @@ jobs:
       - name: Compile codes
         run: npm run build
 
-      - name: Clear root dir
-        run: rm -rf $(ls -I "build")
-
-      - run: rm -rf .svelte-kit
-
-      - name: Move from build to root
-        run: mv ./build/* ./
-
-      - name: Remove build dir
-        run: rm -rf build
-
       # TODO: test go here
 
       - name: Commit to production branch
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: Deploy code for ${{ github.event.head_commit.message }}
-          branch: production
+          branch: pages

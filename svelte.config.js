@@ -17,7 +17,7 @@ const config = {
 
 		// TODO: setup 404 page
 		adapter: adapter({
-			pages: 'build',
+			pages: 'docs',
 			fallback: null,
 		}),
 	},
