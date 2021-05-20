@@ -36,7 +36,7 @@ jobs:
         run: mv ./build/* ./
 
       - name: Remove build dir
-        run: rm -r build
+        run: rm -rf build
 
       # TODO: test go here
 
