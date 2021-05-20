@@ -32,6 +32,8 @@ jobs:
       - name: Clear root dir
         run: rm -rf $(ls -I "build")
 
+      - run: rm -rf .svelte-kit
+
       - name: Move from build to root
         run: mv ./build/* ./
 
