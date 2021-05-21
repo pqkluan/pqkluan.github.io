@@ -13,10 +13,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout master
-        uses: actions/checkout@v2
-        with:
-          ref: ${{ github.head_ref }}
+      # - name: Checkout master
+      #   uses: actions/checkout@v2
+      #   with:
+      #     ref: ${{ github.head_ref }}
 
       - name: Checkout pages branch
         uses: actions/checkout@v2
