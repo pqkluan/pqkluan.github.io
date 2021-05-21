@@ -1,26 +1,24 @@
-# create-svelte
+# pqkluan.github.io
 
-[![Build Actions Status](https://github.com/pqkluan/pqkluan.github.io/workflows/node.js.yml/badge.svg)](https://github.com/pqkluan/pqkluan.github.io/actions)
+[![Build Actions Status](https://github.com/pqkluan/pqkluan.github.io/actions/workflows/node.js.yml/badge.svg)](https://github.com/pqkluan/pqkluan.github.io/actions/workflows/node.js.yml)
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte);
+This repo is a personal project of pqkluan@gmail.com
 
-## Developing
+With intend to learn web development (PWA with svelte) while creating a personal portfolio.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+[The website is currently hosted at docs folder in pages branch.](https://github.com/pqkluan/pqkluan.github.io/tree/pages/docs)
 
-```bash
-npm run dev
+## Roadmaps
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+- [x] Create a github page repo.
+- [x] Create a github action that will deploy the app to release branch when push code to master.
+- [] Learn svelte and update the homepage.
+- [] Update the github action so it only run as needed
+- [] Add tests
 
-## Building
+## Development
 
-Before creating a production version of your app, install an [adapter](https://kit.svelte.dev/docs#adapters) for your target environment. Then:
-
-```bash
-npm run build
-```
-
-> You can preview the built app with `npm run preview`, regardless of whether you installed an adapter. This should _not_ be used to serve your app in production.
+- Clone this repo.
+- Run `yarn dev` for development.
+- Run `yarn build` to release the production build.
+- Run `yarn preview` to preview the production build.
