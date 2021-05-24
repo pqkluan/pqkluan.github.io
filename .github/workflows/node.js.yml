@@ -38,6 +38,8 @@ jobs:
       - name: Compile codes
         run: npm run build
 
+      - run: cp ./.nojekyll ./docs
+
       # TODO: test go here
 
       - name: Commit to production branch
