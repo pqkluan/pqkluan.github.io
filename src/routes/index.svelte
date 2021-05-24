@@ -1,10 +1,10 @@
 <script>
 	import Greeting from '../components/Greeting.svelte';
-	import GoogleSearchBar from '../components/GoogleSearchBar.svelte';
+	import GoogleSearchBar from '../components/GoogleSearchBar/index.svelte';
 </script>
 
 <svelte:head>
-	<title>Home</title>
+	<title>{'Home'}</title>
 	<style>
 		body {
 			margin: 0px;
