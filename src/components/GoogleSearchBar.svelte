@@ -14,7 +14,9 @@
 		if (!keyword) return;
 		// window.open(`https://www.google.com/search?q=${encodeURI(keyword)}`, '_self');
 
-		fetch(`http://suggestqueries.google.com/complete/search?client=firefox&q=${encodeURI(keyword)}`)
+		fetch(
+			`https://suggestqueries.google.com/complete/search?client=firefox&q=${encodeURI(keyword)}`,
+		)
 			.then((res) => res.json())
 			.then((res) => {
 				console.log(res);
