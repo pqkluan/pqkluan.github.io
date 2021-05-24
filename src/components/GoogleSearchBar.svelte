@@ -6,11 +6,21 @@
 	let keyword = '';
 	$: disabled = !keyword;
 
+	let dump = '';
+
 	onMount(() => inputElement?.focus());
 
 	function handleSearch() {
 		if (!keyword) return;
-		window.open(`https://www.google.com/search?q=${encodeURI(keyword)}`, '_self');
+		// window.open(`https://www.google.com/search?q=${encodeURI(keyword)}`, '_self');
+
+		fetch(`http://suggestqueries.google.com/complete/search?client=firefox&q=${encodeURI(keyword)}`)
+			.then((res) => res.json())
+			.then((res) => {
+				console.log(res);
+				dump = JSON.stringify(res, undefined, 2);
+			})
+			.catch(console.error);
 	}
 </script>
 
@@ -23,6 +33,8 @@
 	/>
 	<button type="submit" {disabled}>{'Search'}</button>
 </form>
+
+<p>{dump}</p>
 
 <style>
 	form {
