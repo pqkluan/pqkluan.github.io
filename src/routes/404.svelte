@@ -1,6 +1,4 @@
 <script lang="ts">
-	import Greeting from '@components/Greeting.svelte';
-	import GoogleSearchBar from '@components/GoogleSearchBar/index.svelte';
 </script>
 
 <svelte:head>
