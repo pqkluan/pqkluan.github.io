@@ -4,6 +4,7 @@
 	"scripts": {
 		"dev": "svelte-kit dev",
 		"build": "svelte-kit build",
+		"validate": "svelte-check",
 		"preview": "svelte-kit preview",
 		"lint": "prettier --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
 		"format": "prettier --write --plugin-search-dir=. ."
@@ -11,6 +12,7 @@
 	"devDependencies": {
 		"@sveltejs/adapter-static": "^1.0.0-next.10",
 		"@sveltejs/kit": "next",
+		"@tsconfig/svelte": "^1.0.10",
 		"@typescript-eslint/eslint-plugin": "^4.19.0",
 		"@typescript-eslint/parser": "^4.19.0",
 		"eslint": "^7.22.0",
@@ -19,9 +21,10 @@
 		"prettier": "~2.2.1",
 		"prettier-plugin-svelte": "^2.2.0",
 		"svelte": "^3.34.0",
-		"svelte-preprocess": "^4.0.0",
+		"svelte-check": "^1.5.4",
+		"svelte-preprocess": "^4.7.3",
 		"tslib": "^2.0.0",
-		"typescript": "^4.0.0"
+		"typescript": "^4.2.4"
 	},
 	"type": "module"
 }

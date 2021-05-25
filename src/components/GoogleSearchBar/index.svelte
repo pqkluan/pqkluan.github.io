@@ -1,11 +1,18 @@
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte';
 	import fetchSuggestions from './fetchSuggestions';
+	import debounce from './debounce';
 
 	let inputElement;
 	// TODO: this field should be rehydrate when back
+
 	let keyword = '';
 	$: disabled = !keyword;
+
+	let suggestKeyWord = '';
+	const updateSuggestKeyword = debounce((input: string) => (suggestKeyWord = input), 250);
+	$: updateSuggestKeyword(keyword);
+	$: promise = fetchSuggestions(suggestKeyWord);
 
 	let selectedKeyword = '';
 	// useEffect to trigger search when selectedKeyword updated
@@ -19,53 +26,42 @@
 		return `https://www.google.com/search?q=${encodeURI(q)}`;
 	}
 
-	let timer;
+	// function autocomplete(inp, arr) {
+	// 	// inp.addEventListener('keydown', function );
 
-	const debounce = (v) => {
-		clearTimeout(timer);
-		timer = setTimeout(() => {
-			console.log(v);
-		}, 750);
-	};
+	// 	function addActive(x) {
+	// 		/*a function to classify an item as "active":*/
+	// 		if (!x) return false;
+	// 		/*start by removing the "active" class on all items:*/
+	// 		removeActive(x);
+	// 		if (currentFocus >= x.length) currentFocus = 0;
+	// 		if (currentFocus < 0) currentFocus = x.length - 1;
+	// 		/*add class "autocomplete-active":*/
+	// 		x[currentFocus].classList.add('autocomplete-active');
+	// 	}
 
-	$: promise = fetchSuggestions(keyword);
+	// 	function removeActive(x) {
+	// 		/*a function to remove the "active" class from all autocomplete items:*/
+	// 		for (var i = 0; i < x.length; i++) {
+	// 			x[i].classList.remove('autocomplete-active');
+	// 		}
+	// 	}
 
-	function autocomplete(inp, arr) {
-		// inp.addEventListener('keydown', function );
-
-		function addActive(x) {
-			/*a function to classify an item as "active":*/
-			if (!x) return false;
-			/*start by removing the "active" class on all items:*/
-			removeActive(x);
-			if (currentFocus >= x.length) currentFocus = 0;
-			if (currentFocus < 0) currentFocus = x.length - 1;
-			/*add class "autocomplete-active":*/
-			x[currentFocus].classList.add('autocomplete-active');
-		}
-
-		function removeActive(x) {
-			/*a function to remove the "active" class from all autocomplete items:*/
-			for (var i = 0; i < x.length; i++) {
-				x[i].classList.remove('autocomplete-active');
-			}
-		}
-
-		function closeAllLists(elmnt) {
-			/*close all autocomplete lists in the document,
-    except the one passed as an argument:*/
-			var x = document.getElementsByClassName('autocomplete-items');
-			for (var i = 0; i < x.length; i++) {
-				if (elmnt != x[i] && elmnt != inp) {
-					x[i].parentNode.removeChild(x[i]);
-				}
-			}
-		}
-		/*execute a function when someone clicks in the document:*/
-		document.addEventListener('click', function (e) {
-			closeAllLists(e.target);
-		});
-	}
+	// 	function closeAllLists(elmnt) {
+	// 		/*close all autocomplete lists in the document,
+	//   except the one passed as an argument:*/
+	// 		var x = document.getElementsByClassName('autocomplete-items');
+	// 		for (var i = 0; i < x.length; i++) {
+	// 			if (elmnt != x[i] && elmnt != inp) {
+	// 				x[i].parentNode.removeChild(x[i]);
+	// 			}
+	// 		}
+	// 	}
+	// 	/*execute a function when someone clicks in the document:*/
+	// 	document.addEventListener('click', function (e) {
+	// 		closeAllLists(e.target);
+	// 	});
+	// }
 </script>
 
 <form on:submit|preventDefault={() => (selectedKeyword = keyword)} autocomplete="off">

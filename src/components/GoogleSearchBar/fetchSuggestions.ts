@@ -1,4 +1,4 @@
-export default async function fetchSuggestions(input) {
+export default async function fetchSuggestions(input: string): Promise<string[]> {
 	if (!input) return [];
 
 	const proxy = 'https://cors.bridged.cc';

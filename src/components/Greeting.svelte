@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	function getGreeting() {
 		const hour = new Date().getHours();
 
