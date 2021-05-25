@@ -19,14 +19,14 @@ const config = {
 		// TODO: setup 404 page
 		adapter: adapter({
 			pages: 'docs',
-			fallback: '404.html',
+			// fallback: '404.html',
 		}),
 
-		prerender: {
-			enabled: true,
-		},
+		// prerender: {
+		// 	enabled: true,
+		// },
 
-		ssr: false,
+		// ssr: false,
 
 		vite: {
 			resolve: {
