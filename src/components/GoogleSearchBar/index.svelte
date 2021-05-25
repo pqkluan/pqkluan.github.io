@@ -1,26 +1,22 @@
 <script lang="ts">
+	import { fetchAutocompleteSuggestions, makeSearchUrl } from '@resources/google';
 	import { onMount } from 'svelte';
-	import fetchSuggestions from './fetchSuggestions';
 	import debounce from './debounce';
 
 	let inputElement: HTMLInputElement;
-	let currentFocus: number = -1;
-	let keyword: string = ''; // TODO: this field should be rehydrate when back
-	let suggestKeyWord: string = '';
-	let selectedKeyword: string = '';
+	let currentFocus = -1;
+	let keyword = ''; // TODO: this field should be rehydrate when back
+	let suggestKeyWord = '';
+	let selectedKeyword = '';
 
 	const updateSuggestKeyword = debounce((input: string) => (suggestKeyWord = input), 250);
 
 	$: disabled = !keyword;
 	$: updateSuggestKeyword(keyword);
-	$: promise = fetchSuggestions(suggestKeyWord);
-	$: !!selectedKeyword && window.open(buildGoogleSearchUrl(selectedKeyword), '_self');
+	$: promise = fetchAutocompleteSuggestions(suggestKeyWord);
+	$: !!selectedKeyword && window.open(makeSearchUrl(selectedKeyword), '_self');
 
 	onMount(() => inputElement?.focus());
-
-	function buildGoogleSearchUrl(q) {
-		return `https://www.google.com/search?q=${encodeURI(q)}`;
-	}
 
 	function handleKeyDown(e: KeyboardEvent & { currentTarget: EventTarget & HTMLInputElement }) {
 		if (e.defaultPrevented) return;
