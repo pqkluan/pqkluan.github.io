@@ -24,8 +24,9 @@
 <style>
 	@import url('https://fonts.googleapis.com/css2?family=KoHo:wght@500&family=Pattaya&display=swap');
 	p {
-		text-align: center;
-		font-size: x-large;
+		color: cornflowerblue;
 		font-family: 'Pattaya', sans-serif;
+		font-size: xx-large;
+		text-align: center;
 	}
 </style>

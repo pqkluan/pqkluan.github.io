@@ -3,22 +3,18 @@
 	import fetchSuggestions from './fetchSuggestions';
 	import debounce from './debounce';
 
-	let inputElement;
-	// TODO: this field should be rehydrate when back
+	let inputElement: HTMLInputElement;
+	let currentFocus: number = -1;
+	let keyword: string = ''; // TODO: this field should be rehydrate when back
+	let suggestKeyWord: string = '';
+	let selectedKeyword: string = '';
 
-	let keyword = '';
-	$: disabled = !keyword;
-
-	let suggestKeyWord = '';
 	const updateSuggestKeyword = debounce((input: string) => (suggestKeyWord = input), 250);
+
+	$: disabled = !keyword;
 	$: updateSuggestKeyword(keyword);
 	$: promise = fetchSuggestions(suggestKeyWord);
-
-	let selectedKeyword = '';
-	// useEffect to trigger search when selectedKeyword updated
 	$: !!selectedKeyword && window.open(buildGoogleSearchUrl(selectedKeyword), '_self');
-
-	let selectedIndex = -1;
 
 	onMount(() => inputElement?.focus());
 
@@ -26,97 +22,44 @@
 		return `https://www.google.com/search?q=${encodeURI(q)}`;
 	}
 
-	// function autocomplete(inp, arr) {
-	// 	// inp.addEventListener('keydown', function );
+	function handleKeyDown(e: KeyboardEvent & { currentTarget: EventTarget & HTMLInputElement }) {
+		if (e.defaultPrevented) return;
+		// Early exist if event.key is not support
+		if (e.key === undefined) return;
+		// Exit if it's not navigating keys
+		if (!['ArrowDown', 'ArrowUp', 'Enter'].includes(e.key)) return;
 
-	// 	function addActive(x) {
-	// 		/*a function to classify an item as "active":*/
-	// 		if (!x) return false;
-	// 		/*start by removing the "active" class on all items:*/
-	// 		removeActive(x);
-	// 		if (currentFocus >= x.length) currentFocus = 0;
-	// 		if (currentFocus < 0) currentFocus = x.length - 1;
-	// 		/*add class "autocomplete-active":*/
-	// 		x[currentFocus].classList.add('autocomplete-active');
-	// 	}
+		const autoCompleteElement = document.getElementById('autocomplete-list');
+		if (!autoCompleteElement) return;
+		const elements = autoCompleteElement.getElementsByTagName('div');
+		if (!elements) return;
 
-	// 	function removeActive(x) {
-	// 		/*a function to remove the "active" class from all autocomplete items:*/
-	// 		for (var i = 0; i < x.length; i++) {
-	// 			x[i].classList.remove('autocomplete-active');
-	// 		}
-	// 	}
+		if (e.key === 'Enter') {
+			if (currentFocus === -1) selectedKeyword = keyword;
+			// TODO: should have better way than this?
+			else elements[currentFocus].click();
+		} else {
+			if (e.key === 'ArrowDown') {
+				currentFocus = currentFocus + 1;
+			} else if (e.key === 'ArrowUp') {
+				currentFocus = currentFocus - 1;
+			}
 
-	// 	function closeAllLists(elmnt) {
-	// 		/*close all autocomplete lists in the document,
-	//   except the one passed as an argument:*/
-	// 		var x = document.getElementsByClassName('autocomplete-items');
-	// 		for (var i = 0; i < x.length; i++) {
-	// 			if (elmnt != x[i] && elmnt != inp) {
-	// 				x[i].parentNode.removeChild(x[i]);
-	// 			}
-	// 		}
-	// 	}
-	// 	/*execute a function when someone clicks in the document:*/
-	// 	document.addEventListener('click', function (e) {
-	// 		closeAllLists(e.target);
-	// 	});
-	// }
+			if (currentFocus >= elements.length) currentFocus = 0;
+			if (currentFocus < -1) currentFocus = elements.length - 1;
+		}
+
+		e.preventDefault();
+	}
 </script>
 
 <form on:submit|preventDefault={() => (selectedKeyword = keyword)} autocomplete="off">
-	<div class="autocomplete" style="width:300px;">
+	<div class="input-container">
 		<input
+			class={'input-search-box'}
 			bind:value={keyword}
 			bind:this={inputElement}
-			on:keydown={(e) => {
-				if (e.defaultPrevented) return;
-
-				const pressedKey = e.key;
-
-				if (pressedKey === undefined) {
-					e.preventDefault();
-					return;
-				}
-
-				if (pressedKey === 'ArrowDown') {
-				} else if (pressedKey === 'ArrowUp') {
-				}
-
-				switch (e.key) {
-					case 'ArrowDown': {
-						return;
-					}
-					case 'ArrowUp': {
-						return;
-					}
-				}
-
-				console.log(pressedKey);
-				// var x = document.getElementById(this.id + 'autocomplete-list');
-				// if (x) x = x.getElementsByTagName('div');
-				// if (e.keyCode == 40) {
-				// 	/*If the arrow DOWN key is pressed,
-				//   increase the currentFocus variable:*/
-				// 	currentFocus++;
-				// 	/*and and make the current item more visible:*/
-				// 	addActive(x);
-				// } else if (e.keyCode == 38) {
-				// 	//up
-				// 	/*If the arrow UP key is pressed,
-				//   decrease the currentFocus variable:*/
-				// 	currentFocus--;
-				// 	/*and and make the current item more visible:*/
-				// 	addActive(x);
-				// } else if (e.keyCode == 13) {
-				// 	/*If the ENTER key is pressed, prevent the form from being submitted,*/
-				// 	e.preventDefault();
-				// 	if (currentFocus > -1) {
-				// 		/*and simulate a click on the "active" item:*/
-				// 		if (x) x[currentFocus].click();
-				// 	}
-				// }
-			}}
+			on:keydown={handleKeyDown}
 			type="text"
 			placeholder={'Search for something?'}
 		/>
@@ -124,9 +67,12 @@
 		{#await promise then suggestions}
 			{#if Array.isArray(suggestions) && suggestions.length !== 0 && keyword.length !== 0}
 				<div id={'autocomplete-list'} class={'autocomplete-items'}>
-					{#each suggestions as suggestion}
-						<div on:click={() => (selectedKeyword = suggestion)}>
-							{@html `<b>${keyword}</b>${suggestion.substr(keyword.length)}`}
+					{#each suggestions as suggestion, i}
+						<div
+							class={currentFocus === i ? 'autocomplete-active' : ''}
+							on:click={() => (selectedKeyword = suggestion)}
+						>
+							<b>{keyword}</b>{suggestion.substr(keyword.length)}
 							<input type="hidden" value={suggestion} />
 						</div>
 					{/each}
@@ -141,70 +87,62 @@
 </form>
 
 <style>
+	@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+
 	form {
 		display: flex;
 		flex-direction: row;
 	}
 
-	/*
-	button {
-		margin-left: 8px;
-		padding: 8px;
-		background-color: cornflowerblue;
-		color: white;
-		border-radius: 2px;
-		outline: none;
-		border: none;
-	}
-	button:disabled {
-		background-color: grey;
-	} */
-
-	.autocomplete {
+	.input-container {
 		/*the container must be positioned relative:*/
-		position: relative;
 		display: inline-block;
+		position: relative;
 	}
-	input {
-		border: 1px solid transparent;
+
+	.input-search-box {
+		min-width: 360px;
 		background-color: #f1f1f1;
-		padding: 8px;
+		border: 1px solid #d4d4d4;
+		font-family: 'Open Sans', sans-serif;
 		font-size: 16px;
+		padding: 8px;
 	}
 
 	button {
+		background-color: cornflowerblue;
 		border: 1px solid transparent;
-		background-color: #f1f1f1;
-		padding: 8px;
+		color: white;
+		font-family: 'Open Sans', sans-serif;
+		font-weight: bold;
 		font-size: 16px;
-		background-color: DodgerBlue;
-		color: #fff;
+		margin-left: 4px;
+		padding: 8px;
+	}
+
+	button:disabled {
+		background-color: gray;
 	}
 
 	.autocomplete-items {
-		position: absolute;
-		border: 1px solid #d4d4d4;
 		border-bottom: none;
 		border-top: none;
-		z-index: 99;
-		/*position the autocomplete items to be the same width as the container:*/
-		top: 100%;
+		border: 1px solid #d4d4d4;
 		left: 0;
+		position: absolute;
 		right: 0;
+		top: 100%;
+		z-index: 99;
 	}
 	.autocomplete-items div {
-		padding: 10px;
-		cursor: pointer;
-		background-color: #fff;
+		background-color: white;
 		border-bottom: 1px solid #d4d4d4;
-	}
-	.autocomplete-items div:hover {
-		/*when hovering an item:*/
-		background-color: #e9e9e9;
+		cursor: pointer;
+		font-family: 'Open Sans', sans-serif;
+		padding: 8px;
 	}
 	.autocomplete-active {
-		/*when navigating through the items using the arrow keys:*/
-		background-color: DodgerBlue !important;
+		background-color: cornflowerblue !important;
 		color: #ffffff;
 	}
 </style>
