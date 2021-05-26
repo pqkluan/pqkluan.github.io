@@ -35,11 +35,8 @@
 			// TODO: should have better way than this?
 			else elements[currentFocus].click();
 		} else {
-			if (e.key === 'ArrowDown') {
-				currentFocus = currentFocus + 1;
-			} else if (e.key === 'ArrowUp') {
-				currentFocus = currentFocus - 1;
-			}
+			if (e.key === 'ArrowDown') currentFocus = currentFocus + 1;
+			else if (e.key === 'ArrowUp') currentFocus = currentFocus - 1;
 
 			if (currentFocus >= elements.length) currentFocus = 0;
 			if (currentFocus < -1) currentFocus = elements.length - 1;
@@ -69,17 +66,17 @@
 							on:click={() => (selectedKeyword = suggestion)}
 						>
 							<b>{keyword}</b>{suggestion.substr(keyword.length)}
-							<input type="hidden" value={suggestion} />
+							<input type={'hidden'} value={suggestion} />
 						</div>
 					{/each}
 				</div>
 			{/if}
 		{:catch error}
-			<p style="color: red">{error.message}</p>
+			<p style={'color: red'}>{error.message}</p>
 		{/await}
 	</div>
 
-	<button type="submit" {disabled}>{'Search'}</button>
+	<button type={'submit'} {disabled}>{'Search'}</button>
 </form>
 
 <style>

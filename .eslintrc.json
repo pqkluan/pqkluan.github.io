@@ -1,0 +1,40 @@
+{
+	"$schema": "https://json.schemastore.org/eslintrc.json",
+	"root": true,
+	"parser": "@typescript-eslint/parser",
+	"plugins": ["svelte3", "@typescript-eslint"],
+	"extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier"],
+	"overrides": [
+		{
+			"files": ["*.svelte"],
+			"processor": "svelte3/svelte3"
+		}
+	],
+	"settings": {
+		"svelte3/typescript": true
+	},
+	"parserOptions": {
+		"sourceType": "module",
+		"ecmaVersion": 2019
+	},
+	"env": {
+		"browser": true,
+		"es2017": true,
+		"node": true
+	},
+	"rules": {
+		// Duplicate with tsc check
+		"no-unused-vars": "off",
+		// Flexible braces rules depend on no. of lines after condition statement
+		"curly": ["error", "multi-or-nest"],
+		// Force === for comparison, except == for soft null/undefined check.
+		"eqeqeq": ["error", "smart"],
+		// Only required function name as needed
+		"func-names": ["error", "as-needed"],
+		// Force using single quote when passing string as jsx prop
+		"jsx-quotes": ["error", "prefer-single"],
+
+		// Typescript rules
+		"@typescript-eslint/no-unused-vars": "off"
+	}
+}
