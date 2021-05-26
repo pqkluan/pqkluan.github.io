@@ -1,3 +1,10 @@
+/**
+ * Debounce an function after a duration
+ *
+ * @param callback
+ * @param duration
+ * @returns
+ */
 export default function debounce<P>(
 	callback: (params: P) => void,
 	duration: number,
