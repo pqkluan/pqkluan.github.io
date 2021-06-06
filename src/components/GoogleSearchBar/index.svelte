@@ -94,7 +94,7 @@
 	}
 
 	.input-search-box {
-		min-width: 360px;
+		/* min-width: 360px; */
 		background-color: #f1f1f1;
 		border: 1px solid #d4d4d4;
 		font-family: 'Open Sans', sans-serif;
