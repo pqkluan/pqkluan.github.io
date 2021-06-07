@@ -29,11 +29,19 @@ jobs:
         with:
           node-version: '>=12.17.0'
 
-      - name: Install packages
-        run: npm install
+      - uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: install
 
-      - name: Compile codes
-        run: npm run build
+      - uses: borales/actions-yarn@v2.0.0
+        with:
+          cmd: build
+
+      # - name: Install packages
+      #   run: npm install
+
+      # - name: Compile codes
+      #   run: npm run build
 
       - run: cp ./.nojekyll ./docs
 
