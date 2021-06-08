@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Scrip to fix issue with Svelte Kit source map for error like this:
  * ENOENT: no such file or directory, open '.../smui-example-sveltekit/node_modules/@material/ripple/index.ts'
