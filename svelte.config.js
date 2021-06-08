@@ -12,8 +12,14 @@ const config = {
 		// hydrate the <div id="svelte"> element in src/app.html
 		target: '#svelte',
 
+		ssr: false,
+
 		files: {
 			assets: './static',
+		},
+
+		prerender: {
+			enabled: true,
 		},
 
 		// TODO: setup 404 page
@@ -21,12 +27,6 @@ const config = {
 			pages: 'docs',
 			// fallback: '404.html',
 		}),
-
-		// prerender: {
-		// 	enabled: true,
-		// },
-
-		// ssr: false,
 
 		vite: {
 			resolve: {

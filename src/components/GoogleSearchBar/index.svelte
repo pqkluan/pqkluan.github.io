@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Button, { Label } from '@smui/button';
 	import { fetchAutocompleteSuggestions, makeSearchUrl } from '@resources/google';
 	import { onMount } from 'svelte';
 	import debounce from './debounce';
@@ -65,7 +66,8 @@
 							class={currentFocus === i ? 'autocomplete-active' : ''}
 							on:click={() => (selectedKeyword = suggestion)}
 						>
-							<b>{keyword}</b>{suggestion.substr(keyword.length)}
+							<b>{keyword}</b>
+							{suggestion.substr(keyword.length)}
 							<input type={'hidden'} value={suggestion} />
 						</div>
 					{/each}
@@ -76,7 +78,9 @@
 		{/await}
 	</div>
 
-	<button type={'submit'} {disabled}>{'Search'}</button>
+	<Button type={'submit'} variant={'unelevated'} {disabled} ripple={false}>
+		<Label>{'Search'}</Label>
+	</Button>
 </form>
 
 <style>
@@ -100,21 +104,6 @@
 		font-family: 'Open Sans', sans-serif;
 		font-size: 16px;
 		padding: 8px;
-	}
-
-	button {
-		background-color: cornflowerblue;
-		border: 1px solid transparent;
-		color: white;
-		font-family: 'Open Sans', sans-serif;
-		font-weight: bold;
-		font-size: 16px;
-		margin-left: 4px;
-		padding: 8px;
-	}
-
-	button:disabled {
-		background-color: gray;
 	}
 
 	.autocomplete-items {
