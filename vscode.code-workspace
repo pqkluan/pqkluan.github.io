@@ -11,10 +11,10 @@
 		},
 		"editor.formatOnSave": true,
 		"editor.tabSize": 2,
-		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.defaultFormatter": "svelte.svelte-vscode",
 		"cSpell.words": ["sveltejs"]
 	},
 	"extensions": {
-		"recommendations": ["esbenp.prettier-vscode","svelte.svelte-vscode"]
+		"recommendations": ["esbenp.prettier-vscode", "svelte.svelte-vscode"]
 	}
 }
