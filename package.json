@@ -7,13 +7,18 @@
 		"validate": "svelte-check",
 		"preview": "svelte-kit preview",
 		"lint": "prettier --check --plugin-search-dir=. . && eslint --ignore-path .gitignore . --fix",
-		"format": "prettier --write --plugin-search-dir=. ."
+		"format": "prettier --write --plugin-search-dir=. .",
+		"prepare": "npm run vite-workaround && npm run smui-theme-light",
+		"vite-workaround": "node scripts/vite-workaround.js",
+		"smui-theme-light": "smui-theme compile static/css/smui.css -i src/theme"
 	},
 	"dependencies": {
+		"@smui/button": "^4.2.0",
 		"@smui/icon-button": "^4.2.0",
 		"@smui/top-app-bar": "^4.2.0"
 	},
 	"devDependencies": {
+		"@mdi/js": "^5.9.55",
 		"@pqkluan/prettier-config": "^1.0.7",
 		"@sveltejs/adapter-static": "next",
 		"@sveltejs/kit": "next",
@@ -26,6 +31,7 @@
 		"prettier": "~2.3.1",
 		"prettier-plugin-svelte": "^2.2.0",
 		"rollup": "^2.51.0",
+		"smui-theme": "^4.2.0",
 		"svelte": "^3.34.0",
 		"svelte-check": "^2.1.0",
 		"svelte-preprocess": "^4.7.3",
