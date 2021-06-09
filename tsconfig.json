@@ -24,7 +24,8 @@
 		"checkJs": true,
 		"paths": {
 			"@components/*": ["src/components/*"],
-			"@resources/*": ["src/resources/*"]
+			"@resources/*": ["src/resources/*"],
+			"@utils/*": ["src/utils/*"]
 		}
 	},
 	"include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.svelte"]

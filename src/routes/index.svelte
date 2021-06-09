@@ -2,11 +2,10 @@
 	import TopAppBar, { Row, Section, Title, AutoAdjust } from '@smui/top-app-bar';
 
 	import GibhubIcon from '@components/GithubIcon.svelte';
-	import GoogleSearchBar from '@components/GoogleSearchBar/index.svelte';
 	import Greeting from '@components/Greeting.svelte';
+	import SearchBar from '@components/SearchBar.svelte';
 
 	const title = 'Home';
-	let topAppBar: TopAppBar;
 </script>
 
 <svelte:head>
@@ -18,7 +17,7 @@
 	</style>
 </svelte:head>
 
-<TopAppBar bind:this={topAppBar}>
+<TopAppBar variant="static">
 	<Row>
 		<Section>
 			<Title>{title}</Title>
@@ -30,18 +29,16 @@
 	</Row>
 </TopAppBar>
 
-<AutoAdjust {topAppBar}>
-	<div class={'container'}>
-		<Greeting />
-		<GoogleSearchBar />
-	</div>
-</AutoAdjust>
+<div class="container">
+	<Greeting />
+	<SearchBar />
+</div>
 
 <style>
 	.container {
-		height: 80vh;
 		display: flex;
 		flex-direction: column;
+		flex: 1;
 		align-items: center;
 		justify-content: center;
 	}
