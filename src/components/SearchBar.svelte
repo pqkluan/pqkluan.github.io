@@ -1,14 +1,13 @@
 <script lang="ts">
-	// import { onMount } from 'svelte';
+	import { onMount } from 'svelte';
 	import { Input } from '@smui/textfield';
 	import Card from '@smui/card';
 	import { Icon } from '@smui/common';
-	import Button, { Label } from '@smui/button';
 
 	import { fetchAutocompleteSuggestions, makeSearchUrl } from '@resources/google';
 	import debounce from '@utils/debounce';
 
-	let value = ''; // TODO: this field should be rehydrate when back
+	let value = '';
 	let inputElement: HTMLInputElement;
 	let currentFocus = -1;
 	let suggestKeyWord = '';
@@ -20,8 +19,7 @@
 	$: promise = fetchAutocompleteSuggestions(suggestKeyWord);
 	$: !!selectedKeyword && window.open(makeSearchUrl(selectedKeyword), '_self');
 
-	// TODO: not working
-	// onMount(() => inputElement?.focus());
+	onMount(() => setTimeout(inputElement.focus, 100));
 
 	function handleKeyDown(e: KeyboardEvent & { currentTarget: EventTarget & HTMLInputElement }) {
 		if (e.defaultPrevented) return;
@@ -56,9 +54,11 @@
 	 * 2. Hover on suggestion should apply focus effect but not text update
 	 * 3. Change the fetch suggestion logics
 	 * 4. Update search button display logic
-	 * 5. fix focus on mount
 	 * 6. focus should highlight the card
 	 */
+
+	const urlParams = new URLSearchParams(window.location.search);
+	const queryStr = urlParams.get('q');
 </script>
 
 <div class="input-container">
@@ -71,6 +71,8 @@
 			placeholder="Search"
 			bind:value
 			on:keydown={handleKeyDown}
+			type="text"
+			autoFocus
 		/>
 	</Card>
 
@@ -92,10 +94,6 @@
 		<p style={'color: red'}>{error.message}</p>
 	{/await}
 </div>
-
-<Button color="secondary" on:click={() => {}} disabled={!value} variant="outlined">
-	<Label>{'Google Search'}</Label>
-</Button>
 
 <!-- TODO: styling is a mess, should be clean up after learn a bit of css -->
 <style>

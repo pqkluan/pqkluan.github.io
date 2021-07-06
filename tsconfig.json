@@ -24,6 +24,7 @@
 		"checkJs": true,
 		"paths": {
 			"@components/*": ["src/components/*"],
+			"@hooks/*": ["src/hooks/*"],
 			"@resources/*": ["src/resources/*"],
 			"@utils/*": ["src/utils/*"]
 		}

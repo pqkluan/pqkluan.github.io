@@ -33,6 +33,7 @@ const config = {
 				alias: {
 					'@components': path.resolve('./src/components'),
 					'@resources': path.resolve('./src/resources'),
+					'@hooks': path.resolve('./src/hooks'),
 					'@utils': path.resolve('./src/utils'),
 				},
 			},
