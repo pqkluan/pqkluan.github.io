@@ -28,15 +28,19 @@
 		// Exit if it's not navigating keys
 		if (!['ArrowDown', 'ArrowUp', 'Enter'].includes(e.key)) return;
 
+		if (e.key === 'Enter' && currentFocus === -1) {
+			selectedKeyword = value;
+			return;
+		}
+
 		const autoCompleteElement = document.getElementById('autocomplete-list');
 		if (!autoCompleteElement) return;
 		const elements = autoCompleteElement.getElementsByTagName('div');
 		if (!elements) return;
 
 		if (e.key === 'Enter') {
-			if (currentFocus === -1) selectedKeyword = value;
 			// TODO: should have better way than this?
-			else elements[currentFocus].click();
+			elements[currentFocus].click();
 		} else {
 			if (e.key === 'ArrowDown') currentFocus = currentFocus + 1;
 			else if (e.key === 'ArrowUp') currentFocus = currentFocus - 1;
@@ -56,9 +60,6 @@
 	 * 4. Update search button display logic
 	 * 6. focus should highlight the card
 	 */
-
-	const urlParams = new URLSearchParams(window.location.search);
-	const queryStr = urlParams.get('q');
 </script>
 
 <div class="input-container">
