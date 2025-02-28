@@ -6,16 +6,10 @@
 		}
 	],
 	"settings": {
-		"files.exclude": {
-			// ".svelte-kit": true
-		},
 		"editor.formatOnSave": true,
 		"editor.tabSize": 2,
 		"editor.defaultFormatter": "esbenp.prettier-vscode",
-		"[svelte]": {
-			"editor.defaultFormatter": "svelte.svelte-vscode"
-		},
-		"cSpell.words": ["sveltejs"]
+		"cSpell.words": ["staffun"]
 	},
 	"extensions": {
 		"recommendations": ["esbenp.prettier-vscode", "svelte.svelte-vscode"]
