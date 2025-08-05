@@ -7,7 +7,7 @@ export default function Home() {
       <main className={styles.main}>
         <Image
           className={styles.logo}
-          src="/staffun-logo.svg"
+          src="/staffun-logo.png"
           alt="Next.js logo"
           width={674}
           height={224}
